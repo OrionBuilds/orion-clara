@@ -31,3 +31,7 @@ node_modules
 
 # Keep the example settings file in the repo
 !.env.example
+
+# Windows-style paths created by a misconfigured vault setting (never track)
+D:*
+*OBSIDIAN-VAULT*
