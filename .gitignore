@@ -1,0 +1,33 @@
+node_modules/
+.next/
+out/
+dist/
+*.log
+logs/
+.env
+.env.local
+.env.*.local
+# Held back until its contents are confirmed to be placeholders rather than real keys.
+# Safe to un-ignore once verified — it's useful for setting Clara up on another machine.
+.env.local.example
+.DS_Store
+Thumbs.db
+.vercel
+next-env.d.ts
+tsconfig.tsbuildinfo
+
+# Local whisper.cpp + ffmpeg install (large binaries — never commit)
+bin/
+owner-profile.json
+# Weekly Drive snapshots written by the knowledge-refresh job; regenerated at runtime
+knowledge/sources/
+# Your own company knowledge (start from knowledge/company.example.md)
+knowledge/company.md
+
+# a stray file named node_modules (a flattened symlink) must never be tracked either
+node_modules
+
+.env.*
+
+# Keep the example settings file in the repo
+!.env.example

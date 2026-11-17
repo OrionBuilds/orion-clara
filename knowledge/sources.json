@@ -1,0 +1,4 @@
+{
+  "_comment": "Optional. Google Drive files company.md was compiled from: { \"id\": \"<drive file id>\", \"title\": \"...\", \"aliases\": [\"ICP\"], \"note\": \"...\" }. The weekly knowledge-refresh job snapshots them under knowledge/sources/ and tells the owner when one changes; company.md is still re-curated by hand. Leave the list empty to disable the refresh.",
+  "sources": []
+}

@@ -1,0 +1,2135 @@
+exports[`clara tool catalog > roster (names, catalog order) 1`] = `
+[
+  "deep_work",
+  "run_subagent",
+  "work_queue",
+  "convene_meeting",
+  "get_weather",
+  "find_local_business",
+  "get_directions",
+  "geocode_address",
+  "web_search",
+  "sweep_inbox",
+  "list_subscriptions",
+  "unsubscribe_from",
+  "find_email",
+  "send_email",
+  "draft_email",
+  "block_sender",
+  "list_blocked",
+  "drive_search",
+  "drive_read",
+  "drive_create",
+  "drive_edit",
+  "drive_trash",
+  "make_document",
+  "coordinate_event",
+  "list_calendar",
+  "move_event",
+  "cancel_event",
+  "book_event",
+  "connect_call",
+  "put_through_list",
+  "add_task",
+  "list_tasks",
+  "complete_task",
+  "track_followup",
+  "list_followups",
+  "whats_waiting_on_me",
+  "decide",
+  "brief_me",
+  "project_status",
+  "client_status",
+  "delegation_status",
+  "agent_status",
+  "restart_service",
+  "delegate_to_agent",
+  "pipelines_list",
+  "stages_list",
+  "create_deal",
+  "move_deal_stage",
+  "pipeline_status",
+  "deal_lookup",
+  "invoice_status",
+  "find_free_slot",
+  "check_availability",
+  "book_appointment",
+  "portal_message",
+  "escalate_out_of_scope_request",
+  "find_appointment",
+  "reschedule_appointment",
+  "cancel_appointment",
+  "add_contact_note",
+  "read_thread",
+  "proposals_list",
+  "contracts_list",
+  "send_for_signature",
+  "signature_status",
+  "signature_void",
+  "crm_lookup",
+  "recall_sessions",
+  "prospect_plan",
+  "prospect_start",
+  "prospect_status",
+  "prospect_pause",
+  "prospect_resume",
+  "prospect_cancel",
+  "prospect_budget_add",
+  "prospect_export"
+]
+`;
+
+exports[`tool: add_contact_note > golden surface 1`] = `
+{
+  "name": "add_contact_note",
+  "description": "Write a note onto a CRM contact's record. Use after a call or conversation — 'note that Casey wants the quote by Friday'.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "contact": {
+        "type": "string",
+        "description": "Name, email or company — resolved against the CRM."
+      },
+      "note": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "contact",
+      "note"
+    ]
+  },
+  "category": "research.run",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: add_task > golden surface 1`] = `
+{
+  "name": "add_task",
+  "description": "Add something to the owner's task list. Use for 'remind me to…', 'add a task', 'I need to…', 'don't let me forget…'. Syncs to Google Tasks automatically.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "title": {
+        "type": "string"
+      },
+      "detail": {
+        "type": "string"
+      },
+      "due": {
+        "type": "string",
+        "description": "ISO 8601 date or datetime, if a deadline was mentioned."
+      }
+    },
+    "required": [
+      "title"
+    ]
+  },
+  "category": "research.run",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: agent_status > golden surface 1`] = `
+{
+  "name": "agent_status",
+  "description": "Live status of Clara and FRIDAY: what's up, what's waiting on the owner, spend, autonomy dials. Use for any 'how are things', 'what's broken', 'status' question.",
+  "input_schema": {
+    "type": "object",
+    "properties": {}
+  },
+  "category": "research.run",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: block_sender > golden surface 1`] = `
+{
+  "name": "block_sender",
+  "description": "Stop a sender's mail from reaching the owner's inbox. Use for spam, phishing, or anyone the owner says they don't want to hear from. Accepts one address, or a bare domain to block everything from it. Never deletes mail — it is archived and stays findable.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "sender": {
+        "type": "string",
+        "description": "Address like \\"noreply@x.com\\", or a bare domain like \\"x.com\\" to block the whole domain."
+      },
+      "reason": {
+        "type": "string",
+        "description": "Short note on why, e.g. 'phishing pretending to be Amazon'."
+      }
+    },
+    "required": [
+      "sender"
+    ]
+  },
+  "category": "email.work",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: book_appointment > golden surface 1`] = `
+{
+  "name": "book_appointment",
+  "description": "Create an appointment on a CRM booking calendar. Call check_availability first for the calendar id and to avoid a clash.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "calendar_id": {
+        "type": "string"
+      },
+      "title": {
+        "type": "string"
+      },
+      "start_time": {
+        "type": "string",
+        "description": "Full ISO 8601 with offset."
+      },
+      "end_time": {
+        "type": "string",
+        "description": "Full ISO 8601 with offset."
+      },
+      "contact_id": {
+        "type": "string"
+      },
+      "description": {
+        "type": "string",
+        "description": "The agenda — what will be discussed."
+      }
+    },
+    "required": [
+      "calendar_id",
+      "title",
+      "start_time",
+      "end_time",
+      "description"
+    ]
+  },
+  "category": "calendar.external",
+  "reversible": false,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: book_event > golden surface 1`] = `
+{
+  "name": "book_event",
+  "description": "Create a new calendar event. If anyone outside the business is invited this becomes an approval instead of happening immediately.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "summary": {
+        "type": "string"
+      },
+      "start_iso": {
+        "type": "string",
+        "description": "Full ISO 8601 with offset."
+      },
+      "end_iso": {
+        "type": "string",
+        "description": "Full ISO 8601 with offset."
+      },
+      "attendees": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Email addresses to invite."
+      },
+      "description": {
+        "type": "string",
+        "description": "The agenda — what this event is actually about."
+      },
+      "external": {
+        "type": "boolean",
+        "description": "True if anyone invited is outside the business."
+      }
+    },
+    "required": [
+      "summary",
+      "start_iso",
+      "end_iso",
+      "description"
+    ]
+  },
+  "category": "calendar.internal",
+  "reversible": false,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: brief_me > golden surface 1`] = `
+{
+  "name": "brief_me",
+  "description": "Compose the owner's brief on demand. Use for 'what's my day look like', 'read me my day', 'catch me up on the week', 'evening summary'. The natural phone request.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "which": {
+        "type": "string",
+        "enum": [
+          "morning",
+          "evening",
+          "weekly"
+        ]
+      }
+    }
+  },
+  "category": "research.run",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: cancel_appointment > golden surface 1`] = `
+{
+  "name": "cancel_appointment",
+  "description": "Cancel a booked CRM appointment. Needs the id from find_appointment. When Alex asks directly it runs at once; from anyone else it queues for Alex's OK first. The booking is marked cancelled, never deleted — the record stays.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "appointment_id": {
+        "type": "string",
+        "description": "From find_appointment."
+      },
+      "reason": {
+        "type": "string",
+        "description": "Short reason, kept on the record."
+      }
+    },
+    "required": [
+      "appointment_id"
+    ]
+  },
+  "category": "calendar.external",
+  "reversible": false,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: cancel_event > golden surface 1`] = `
+{
+  "name": "cancel_event",
+  "description": "Cancel/delete a calendar event by id. Always needs the owner's confirmation.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "event_id": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "event_id"
+    ]
+  },
+  "category": "calendar.internal",
+  "reversible": false,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: check_availability > golden surface 1`] = `
+{
+  "name": "check_availability",
+  "description": "What's already booked on the CRM's own booking calendars. Use before offering someone a slot.",
+  "input_schema": {
+    "type": "object",
+    "properties": {}
+  },
+  "category": "calendar.internal",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: client_status > golden surface 1`] = `
+{
+  "name": "client_status",
+  "description": "How things stand with a client across the team — FRIDAY's projects for them — with provenance. Use for \\"how's Globex doing\\", \\"anything open with Initech\\". Never delegate a status question.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "client": {
+        "type": "string",
+        "description": "The client or company as the owner names it."
+      }
+    },
+    "required": [
+      "client"
+    ]
+  },
+  "category": "research.run",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: complete_task > golden surface 1`] = `
+{
+  "name": "complete_task",
+  "description": "Mark a task done. Match on the task's wording — call list_tasks first if unsure which one.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "title": {
+        "type": "string",
+        "description": "The task's title, or enough of it to identify one."
+      }
+    },
+    "required": [
+      "title"
+    ]
+  },
+  "category": "research.run",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: connect_call > golden surface 1`] = `
+{
+  "name": "connect_call",
+  "description": "Call someone for Alex and connect them — 'connect me to Jordan', 'get me Mike from Globex on the phone', 'call 555-010-0100 for me'. Rings Alex's personal cell first; when they answer, dials the other person with the work caller ID. Takes a name from the contacts/CRM or a phone number.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "who": {
+        "type": "string",
+        "description": "A name as they said it, or a phone number."
+      }
+    },
+    "required": [
+      "who"
+    ]
+  },
+  "category": "call.outbound",
+  "reversible": false,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: contracts_list > golden surface 1`] = `
+{
+  "name": "contracts_list",
+  "description": "List CRM contracts (newest first) with their ids, status, and contact — the id-resolution path for send_for_signature/signature_status on contracts.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "status": {
+        "type": "string",
+        "description": "Optional status filter."
+      },
+      "limit": {
+        "type": "number",
+        "description": "Max rows (default 15)."
+      }
+    }
+  },
+  "category": "research.run",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: convene_meeting > golden surface 1`] = `
+{
+  "name": "convene_meeting",
+  "description": "Call a meeting with Alex in the Office War Room — use when something needs live discussion rather than a message: a decision with tradeoffs, a problem spanning agents, or news that warrants talking through. Creates the room with your topic on the record and pings Alex with the link. Also use when Alex says 'set up a meeting about X'.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "title": {
+        "type": "string",
+        "description": "Short meeting title."
+      },
+      "topic": {
+        "type": "string",
+        "description": "Your opening statement — why you called this and what needs deciding."
+      },
+      "include": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "friday"
+          ]
+        },
+        "description": "Sibling agents who should be in the room too."
+      }
+    },
+    "required": [
+      "title",
+      "topic"
+    ]
+  },
+  "category": "event.coordinate",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: coordinate_event > golden surface 1`] = `
+{
+  "name": "coordinate_event",
+  "description": "Set up an event end to end — book it on the calendar and invite the attendees. Because it invites other people, this always needs the owner's confirmation.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "title": {
+        "type": "string"
+      },
+      "start_iso": {
+        "type": "string",
+        "description": "Full ISO 8601 with offset."
+      },
+      "end_iso": {
+        "type": "string",
+        "description": "Full ISO 8601 with offset."
+      },
+      "location": {
+        "type": "string"
+      },
+      "attendees": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Email addresses."
+      },
+      "prep_note": {
+        "type": "string",
+        "description": "Sent to attendees as the invite body — this is the agenda, so say what will actually be discussed."
+      }
+    },
+    "required": [
+      "title",
+      "start_iso",
+      "end_iso",
+      "prep_note"
+    ]
+  },
+  "category": "event.coordinate",
+  "reversible": false,
+  "speed": "slow"
+}
+`;
+
+exports[`tool: create_deal > golden surface 1`] = `
+{
+  "name": "create_deal",
+  "description": "Create a new deal (opportunity) in the CRM sales pipeline. Needs a pipeline and stage — call pipelines_list first and pass ids or exact names from it — plus the contact it's with (the CRM requires one). When Alex asks directly it runs at once; from anyone else it queues for Alex's OK first.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "description": "Deal name, e.g. 'Acme — website rebuild'."
+      },
+      "pipeline": {
+        "type": "string",
+        "description": "Pipeline id or exact name, from pipelines_list."
+      },
+      "stage": {
+        "type": "string",
+        "description": "Stage id or exact name within that pipeline."
+      },
+      "contact": {
+        "type": "string",
+        "description": "Who the deal is with — name, email or company, resolved against the CRM. Required."
+      },
+      "value_amount": {
+        "type": "number",
+        "description": "Deal value in dollars. Omit if unknown."
+      },
+      "close_date": {
+        "type": "string",
+        "description": "Expected close date, YYYY-MM-DD."
+      }
+    },
+    "required": [
+      "name",
+      "pipeline",
+      "stage",
+      "contact"
+    ]
+  },
+  "category": "research.run",
+  "reversible": false,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: crm_lookup > golden surface 1`] = `
+{
+  "name": "crm_lookup",
+  "description": "Search the CRM for a contact by name, email or company.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "query": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "query"
+    ]
+  },
+  "category": "research.run",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: deal_lookup > golden surface 1`] = `
+{
+  "name": "deal_lookup",
+  "description": "Find a specific deal or opportunity by name and show its stage, value and history.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "query": {
+        "type": "string",
+        "description": "Deal or company name, or part of it."
+      }
+    },
+    "required": [
+      "query"
+    ]
+  },
+  "category": "research.run",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: decide > golden surface 1`] = `
+{
+  "name": "decide",
+  "description": "Record Alex's answer to something Clara (or FRIDAY through Clara) asked them: approve, hold (reject), or defer to a later time. Use when they answer a question you asked, or name the item (\\"go ahead with the Acme Co report\\", \\"hold the Initech budget change\\", \\"send it Monday\\"). Never invent a decision they did not state; if it's unclear which item they mean, leave reference empty and Clara will ask which one.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "decision": {
+        "type": "string",
+        "enum": [
+          "approve",
+          "reject",
+          "defer"
+        ]
+      },
+      "reference": {
+        "type": "string",
+        "description": "The owner's words naming the item, verbatim (client, project, or what it does)."
+      },
+      "defer_until": {
+        "type": "string",
+        "description": "For defer: their words for when (\\"Monday\\", \\"tomorrow\\", \\"next week\\")."
+      }
+    },
+    "required": [
+      "decision"
+    ]
+  },
+  "category": "research.run",
+  "reversible": false,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: deep_work > golden surface 1`] = `
+{
+  "name": "deep_work",
+  "description": "THE tool for any request whose answer is a document, plan, or report — if Alex asks for something that would take a person hours at a desk, this is it. Triggers include: 'I need a proposal for <client>', 'draft the contract/bylaws/agreement set', 'research X and write it up', 'turn this into a polished client PDF', 'build me a report/document package', or any ask for 'docs', 'documents', or 'deliverables'. Runs autonomously in the background — researches the subject, builds branded documents (PDF/DOCX/XLSX), files them in Drive, and pings Alex with links plus anything needing their call. Do NOT fall through to the conversational engine for these — it talks about document work without producing files. NOT for quick questions, calendar/email reads, or single Drive lookups.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "task": {
+        "type": "string",
+        "description": "The full work request in Alex's words, including the subject/client and the deliverables wanted."
+      },
+      "client": {
+        "type": "string",
+        "description": "Client or counterparty name, when the work is for one."
+      },
+      "when": {
+        "type": "string",
+        "enum": [
+          "now",
+          "queue"
+        ],
+        "description": "'now' runs immediately; 'queue' hands it to the overnight shift (Alex saying 'tonight/overnight/queue it' means queue). Omit to choose by time of day — evening asks queue by default."
+      },
+      "override_overdue_gate": {
+        "type": "boolean",
+        "description": "Set true only if Alex explicitly said to proceed despite an overdue invoice after being told about it (e.g. \\"do it anyway\\")."
+      }
+    },
+    "required": [
+      "task"
+    ]
+  },
+  "category": "drive.create",
+  "reversible": true,
+  "speed": "slow"
+}
+`;
+
+exports[`tool: delegate_to_agent > golden surface 1`] = `
+{
+  "name": "delegate_to_agent",
+  "description": "Dispatch work to FRIDAY (software, deploys, repos, infrastructure, client deliverables, SEO). Use it whenever Alex tells you to have, ask or get FRIDAY to do something, or names work squarely in her domain. When Alex asks, the hand-off fires immediately and reports the task id the department queued so it's provable; asks from anyone else queue for Alex's one-tap approval first. We don't offer paid ads or marketing — never dispatch ads/campaign/creative work; say plainly it's not a service we offer.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "agent": {
+        "type": "string",
+        "enum": [
+          "friday"
+        ]
+      },
+      "task": {
+        "type": "string",
+        "description": "The request, in the owner's own words plus any context the head needs."
+      },
+      "client": {
+        "type": "string",
+        "description": "Client or counterparty name, when this dispatch is client work — enables the overdue-invoice check."
+      },
+      "override_overdue_gate": {
+        "type": "boolean",
+        "description": "Set true only if Alex explicitly said to proceed despite an overdue invoice after being told about it."
+      }
+    },
+    "required": [
+      "agent",
+      "task"
+    ]
+  },
+  "category": "research.run",
+  "reversible": false,
+  "speed": "slow"
+}
+`;
+
+exports[`tool: delegation_status > golden surface 1`] = `
+{
+  "name": "delegation_status",
+  "description": "What Clara has handed to FRIDAY and where each hand-off stands — in progress, finished, stuck — from her own receipts, last two days. Use for \\"did FRIDAY finish that\\", \\"what's FRIDAY working on for me\\", \\"is that lead form done yet\\".",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "query": {
+        "type": "string",
+        "description": "Optional: a word from the task, the client, or the agent name to narrow it."
+      }
+    }
+  },
+  "category": "research.run",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: draft_email > golden surface 1`] = `
+{
+  "name": "draft_email",
+  "description": "Compose an email as a DRAFT for the owner to review before it's sent. Use ONLY when they ask for a draft or want to see it first — for 'email / reply to / write to someone', use send_email. This never sends on its own; it queues for their confirmation.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "to": {
+        "type": "string",
+        "description": "Recipient address."
+      },
+      "subject": {
+        "type": "string"
+      },
+      "body": {
+        "type": "string",
+        "description": "Full message text. Write it properly — this is what goes out over their name."
+      },
+      "cc": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "to",
+      "subject",
+      "body"
+    ]
+  },
+  "category": "email.work",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: drive_create > golden surface 1`] = `
+{
+  "name": "drive_create",
+  "description": "Create a new document, spreadsheet or slide deck in the owner's Drive from text you supply. Creates a NEW file; never overwrites anything.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string"
+      },
+      "content": {
+        "type": "string",
+        "description": "Full text content."
+      },
+      "as": {
+        "type": "string",
+        "enum": [
+          "doc",
+          "sheet",
+          "slides",
+          "text",
+          "csv"
+        ]
+      }
+    },
+    "required": [
+      "name",
+      "content",
+      "as"
+    ]
+  },
+  "category": "drive.create",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: drive_edit > golden surface 1`] = `
+{
+  "name": "drive_edit",
+  "description": "Change an EXISTING Drive file — append text to a Doc, replace text in a Doc, write cells in a Sheet, or overwrite a plain file. Read the file first (drive_read) so \`find\` strings are copied verbatim. When the owner asks directly it's applied at once; otherwise it queues for their confirmation.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "file_id": {
+        "type": "string"
+      },
+      "change_summary": {
+        "type": "string",
+        "description": "One line describing the change, in plain English."
+      },
+      "op": {
+        "type": "string",
+        "enum": [
+          "docs-insert",
+          "docs-replace",
+          "sheets-write",
+          "drive-replace-content"
+        ],
+        "description": "docs-insert appends \`text\` to the end of a Doc; docs-replace swaps each \`replacements[].find\` for its \`replace\` in a Doc; sheets-write writes \`values\` into \`range\`; drive-replace-content overwrites a plain (non-Google) file with \`text\`."
+      },
+      "text": {
+        "type": "string",
+        "description": "docs-insert: the text to append (start with \\\\n\\\\n for a new paragraph; use \\\\n between lines). drive-replace-content: the complete new file content."
+      },
+      "replacements": {
+        "type": "array",
+        "description": "docs-replace only: exact, case-sensitive text to find (copied verbatim from drive_read) and what to put in its place. Every occurrence of \`find\` is replaced, so make it specific.",
+        "items": {
+          "type": "object",
+          "properties": {
+            "find": {
+              "type": "string"
+            },
+            "replace": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "find",
+            "replace"
+          ]
+        }
+      },
+      "range": {
+        "type": "string",
+        "description": "sheets-write only: A1 range, e.g. Sheet1!A2:C2."
+      },
+      "values": {
+        "type": "array",
+        "description": "sheets-write only: rows of cell values.",
+        "items": {
+          "type": "array",
+          "items": {
+            "type": [
+              "string",
+              "number"
+            ]
+          }
+        }
+      },
+      "mode": {
+        "type": "string",
+        "enum": [
+          "overwrite",
+          "append"
+        ],
+        "description": "sheets-write only (default overwrite)."
+      }
+    },
+    "required": [
+      "file_id",
+      "change_summary",
+      "op"
+    ]
+  },
+  "category": "drive.modify",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: drive_read > golden surface 1`] = `
+{
+  "name": "drive_read",
+  "description": "Read a Drive file's contents as text (up to 12,000 characters per call; pass \`offset\` to keep reading a long file). Needs the file id — a KNOWN DOCUMENT id from your instructions, or drive_search.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "file_id": {
+        "type": "string"
+      },
+      "offset": {
+        "type": "number",
+        "description": "Character offset to start from (default 0). Use the value the previous read told you to continue at."
+      }
+    },
+    "required": [
+      "file_id"
+    ]
+  },
+  "category": "drive.read",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: drive_search > golden surface 1`] = `
+{
+  "name": "drive_search",
+  "description": "Find files in the owner's Google Drive by name or content. Use before reading or editing anything, to get the file id. Read-only.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "query": {
+        "type": "string",
+        "description": "Words to search for in the file name or contents."
+      },
+      "max": {
+        "type": "number",
+        "description": "Default 10."
+      }
+    },
+    "required": [
+      "query"
+    ]
+  },
+  "category": "drive.read",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: drive_trash > golden surface 1`] = `
+{
+  "name": "drive_trash",
+  "description": "Move a Drive file to the trash. When the owner asks directly it's done at once; otherwise it queues for their confirmation. Trash, never permanent deletion.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "file_id": {
+        "type": "string"
+      },
+      "reason": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "file_id",
+      "reason"
+    ]
+  },
+  "category": "drive.delete",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: escalate_out_of_scope_request > golden surface 1`] = `
+{
+  "name": "escalate_out_of_scope_request",
+  "description": "Use when a client asks for work that falls outside what they're contracted for. Texts the client three options — book a call, go ahead anyway, or skip it — and hands the decision to them (with a 30-minute SLA that defaults to booking a call if they don't reply). Do NOT just do out-of-scope work, and do not decide FOR the client — this tool is how you hand the choice back to them properly.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "client_contact": {
+        "type": "string",
+        "description": "The client's phone number (E.164) to text the options to — the same number/thread they reached out from."
+      },
+      "request_text": {
+        "type": "string",
+        "description": "What the client actually asked for, in their own words."
+      },
+      "client_label": {
+        "type": "string",
+        "description": "Client or company name, for the owner's notification."
+      },
+      "contract_id": {
+        "type": "string",
+        "description": "The contract this falls outside of, if known."
+      }
+    },
+    "required": [
+      "client_contact",
+      "request_text"
+    ]
+  },
+  "category": "event.coordinate",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: find_appointment > golden surface 1`] = `
+{
+  "name": "find_appointment",
+  "description": "Find booked CRM appointments — by day, date range, or matching a title/contact — and return their ids. Use before reschedule_appointment or cancel_appointment (both need the id this returns), or for 'what's booked on Friday'.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "query": {
+        "type": "string",
+        "description": "Text to match against appointment titles and contact names. Omit to list everything in the window."
+      },
+      "date": {
+        "type": "string",
+        "description": "Day to search, YYYY-MM-DD. Defaults to today."
+      },
+      "days": {
+        "type": "number",
+        "description": "How many days from \`date\` to include. Default 7."
+      }
+    }
+  },
+  "category": "calendar.internal",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: find_email > golden surface 1`] = `
+{
+  "name": "find_email",
+  "description": "Search the owner's work mailbox — including archived and already-read mail. Use for 'find that email from…', 'did X ever reply', 'what did the accountant send in June'. Takes a Gmail search query. Read-only.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "query": {
+        "type": "string",
+        "description": "Gmail search syntax, e.g. \\"from:casey@acme.com after:2026/06/01\\" or \\"invoice has:attachment\\"."
+      },
+      "max": {
+        "type": "number",
+        "description": "How many results. Default 15."
+      }
+    },
+    "required": [
+      "query"
+    ]
+  },
+  "category": "email.work",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: find_free_slot > golden surface 1`] = `
+{
+  "name": "find_free_slot",
+  "description": "Find open slots on Alex's own calendar — 'when am I free for a 30-minute call this week', 'find an hour tomorrow'. Checks real free/busy within business hours and proposes concrete times. Read-only; booking is book_event's job. (This is also the capability siblings request over the bus as calendar.find_free_slot.)",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "duration_min": {
+        "type": "number",
+        "description": "Slot length in minutes. Default 30."
+      },
+      "days_ahead": {
+        "type": "number",
+        "description": "How many days out to search, starting now. Default 5."
+      },
+      "count": {
+        "type": "number",
+        "description": "How many candidate slots to propose. Default 3."
+      }
+    }
+  },
+  "category": "calendar.internal",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: find_local_business > golden surface 1`] = `
+{
+  "name": "find_local_business",
+  "description": "Look up a real-world local business by name or type and answer questions about it — hours, whether it's open right now, phone number, address, rating, or a Google Maps link. Use for 'what time does X open/close', 'is X open now', 'what's the phone number for X', 'find a Y near me', 'look up Z'. Read-only — does not contact or call the business. Backed by Google Places; answers reflect Google's current listing data, which can occasionally be stale or incomplete.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "query": {
+        "type": "string",
+        "description": "What to look for, e.g. 'bowling alley', \\"Joe's Plumbing\\", 'pharmacy'. Include distinguishing details if known."
+      },
+      "near": {
+        "type": "string",
+        "description": "Place name to search near, e.g. 'Austin TX' or 'downtown Chicago'. Omit to search near the owner's home."
+      }
+    },
+    "required": [
+      "query"
+    ]
+  },
+  "category": "travel.research",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: geocode_address > golden surface 1`] = `
+{
+  "name": "geocode_address",
+  "description": "Find the coordinates for an address, or confirm/clean up an address, and get a Google Maps link to it. Use for 'what's the address for X', 'where is Y located', 'open this address in maps'.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "address": {
+        "type": "string",
+        "description": "The address or place description to look up."
+      }
+    },
+    "required": [
+      "address"
+    ]
+  },
+  "category": "travel.research",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: get_directions > golden surface 1`] = `
+{
+  "name": "get_directions",
+  "description": "Get driving time and distance to a destination, plus a Google Maps directions link. Use for 'how long to get to X', 'directions to Y', 'how far is X'.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "destination": {
+        "type": "string",
+        "description": "Where to go — an address, place name, or business name."
+      },
+      "origin": {
+        "type": "string",
+        "description": "Where to start from. Omit for the owner's home."
+      }
+    },
+    "required": [
+      "destination"
+    ]
+  },
+  "category": "travel.research",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: get_weather > golden surface 1`] = `
+{
+  "name": "get_weather",
+  "description": "Get the weather forecast for today or the next few days, at home or at a named place ('Central Park', 'Chicago IL'). Use for any weather question, including ones about a specific trip or destination.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "location": {
+        "type": "string",
+        "description": "Place name to look up. Omit for the owner's home."
+      },
+      "days": {
+        "type": "number",
+        "description": "How many days ahead, including today. Default 1."
+      }
+    }
+  },
+  "category": "travel.research",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: invoice_status > golden surface 1`] = `
+{
+  "name": "invoice_status",
+  "description": "Invoices and what's outstanding. Use for 'what did we invoice', 'who owes me money', 'is that invoice paid', 'what's overdue'.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "status": {
+        "type": "string",
+        "description": "draft, sent, paid or overdue. Omit for all."
+      }
+    }
+  },
+  "category": "research.run",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: list_blocked > golden surface 1`] = `
+{
+  "name": "list_blocked",
+  "description": "Show who the owner has blocked, and unblock. Read-only unless \`unblock\` is given.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "unblock": {
+        "type": "string",
+        "description": "Address or domain to UNBLOCK. Omit to just list."
+      }
+    }
+  },
+  "category": "email.work",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: list_calendar > golden surface 1`] = `
+{
+  "name": "list_calendar",
+  "description": "List the owner's upcoming calendar events. Use before moving or cancelling anything, to find the event and its id.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "days": {
+        "type": "number",
+        "description": "How many days ahead. Default 7."
+      }
+    }
+  },
+  "category": "calendar.internal",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: list_followups > golden surface 1`] = `
+{
+  "name": "list_followups",
+  "description": "Everything the owner is currently waiting on from other people, and how long it's been.",
+  "input_schema": {
+    "type": "object",
+    "properties": {}
+  },
+  "category": "research.run",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: list_subscriptions > golden surface 1`] = `
+{
+  "name": "list_subscriptions",
+  "description": "Inventory the owner's email subscriptions — who is mailing them in bulk, how often, and whether each one can be safely unsubscribed. Use for any request about subscriptions, newsletters, mailing lists, or 'who keeps emailing me'. Read-only; unsubscribes nothing.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "max": {
+        "type": "number",
+        "description": "Messages to scan. Default 250."
+      }
+    }
+  },
+  "category": "email.work",
+  "reversible": true,
+  "speed": "slow"
+}
+`;
+
+exports[`tool: list_tasks > golden surface 1`] = `
+{
+  "name": "list_tasks",
+  "description": "The owner's open tasks. Use for 'what's on my list', 'what do I need to do', 'my tasks'.",
+  "input_schema": {
+    "type": "object",
+    "properties": {}
+  },
+  "category": "research.run",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: make_document > golden surface 1`] = `
+{
+  "name": "make_document",
+  "description": "Write a PDF — an itinerary, a summary, a brief, a checklist — from a description of what it should contain. Saved to the owner's vault.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "purpose": {
+        "type": "string",
+        "description": "Title/purpose, e.g. \\"Travel itinerary — Austin trip\\"."
+      },
+      "context": {
+        "type": "string",
+        "description": "Everything that should go in it."
+      },
+      "filename": {
+        "type": "string",
+        "description": "Without extension, kebab-case."
+      },
+      "kind": {
+        "type": "string",
+        "description": "e.g. \\"itinerary\\", \\"summary\\", \\"brief\\", \\"checklist\\"."
+      }
+    },
+    "required": [
+      "purpose",
+      "context",
+      "filename"
+    ]
+  },
+  "category": "research.run",
+  "reversible": true,
+  "speed": "slow"
+}
+`;
+
+exports[`tool: move_deal_stage > golden surface 1`] = `
+{
+  "name": "move_deal_stage",
+  "description": "Move an existing deal to another stage of its pipeline. Needs the deal's id (from pipeline_status or deal_lookup) and the target stage (id or name — stages_list shows them). When Alex asks directly it runs at once; from anyone else it queues for Alex's OK before anything moves.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "deal_id": {
+        "type": "string",
+        "description": "The opportunity id."
+      },
+      "stage": {
+        "type": "string",
+        "description": "Target stage id or exact name, within the deal's own pipeline."
+      }
+    },
+    "required": [
+      "deal_id",
+      "stage"
+    ]
+  },
+  "category": "research.run",
+  "reversible": false,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: move_event > golden surface 1`] = `
+{
+  "name": "move_event",
+  "description": "Change the time or title of an existing calendar event. Requires the event id — call list_calendar first if you do not have it. If the event has attendees this becomes an approval rather than happening immediately.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "event_id": {
+        "type": "string"
+      },
+      "start_iso": {
+        "type": "string",
+        "description": "New start, full ISO 8601 with offset."
+      },
+      "end_iso": {
+        "type": "string",
+        "description": "New end, full ISO 8601 with offset."
+      },
+      "summary": {
+        "type": "string",
+        "description": "New title, if renaming."
+      },
+      "has_attendees": {
+        "type": "boolean",
+        "description": "True if other people are on this event. Be honest — this decides whether it needs the owner's confirmation."
+      }
+    },
+    "required": [
+      "event_id"
+    ]
+  },
+  "category": "calendar.internal",
+  "reversible": false,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: pipeline_status > golden surface 1`] = `
+{
+  "name": "pipeline_status",
+  "description": "The owner's sales pipeline: how many open deals, what they're worth, and the biggest ones. Use for 'what's in my pipeline', 'how's the pipeline looking', 'what deals are open', 'what's my forecast'.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "status": {
+        "type": "string",
+        "description": "open, won or lost. Default open."
+      }
+    }
+  },
+  "category": "research.run",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: pipelines_list > golden surface 1`] = `
+{
+  "name": "pipelines_list",
+  "description": "List the CRM's sales pipelines with their stages and ids. Use before creating or moving a deal — create_deal and move_deal_stage need the ids this returns — or when Alex asks 'what pipelines/stages do we have'.",
+  "input_schema": {
+    "type": "object",
+    "properties": {}
+  },
+  "category": "research.run",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: portal_message > golden surface 1`] = `
+{
+  "name": "portal_message",
+  "description": "Post a message into a client's portal support-ticket thread — client-visible by default. Use for updating a client on project status through the portal rather than email. Same auto-send rules as work email: VIPs and family still escalate.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "ticket_id": {
+        "type": "string",
+        "description": "The support ticket id — use project_support_tickets_list or find_appointment-style lookups first if you don't already have it."
+      },
+      "body": {
+        "type": "string",
+        "description": "The message, in full — this is what the client reads."
+      },
+      "internal_note": {
+        "type": "boolean",
+        "description": "True only for a staff-only note never shown to the client. Default false."
+      }
+    },
+    "required": [
+      "ticket_id",
+      "body"
+    ]
+  },
+  "category": "email.work",
+  "reversible": false,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: project_status > golden surface 1`] = `
+{
+  "name": "project_status",
+  "description": "How a project is going, answered from FRIDAY's live records with provenance — stage, health, what landed recently, what's blocked or next, what's waiting on Alex. Use for \\"how's Acme Co going\\", \\"where are we on the dashboard\\", \\"what happened with X this week\\". Never delegate a status question.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "project": {
+        "type": "string",
+        "description": "The project as the owner names it (fuzzy is fine)."
+      }
+    },
+    "required": [
+      "project"
+    ]
+  },
+  "category": "research.run",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: proposals_list > golden surface 1`] = `
+{
+  "name": "proposals_list",
+  "description": "List CRM proposals (newest first) with their ids, status, and contact — the id-resolution path for send_for_signature/signature_status. Optional status filter: draft, sent, accepted, declined.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "status": {
+        "type": "string",
+        "description": "Filter: draft | sent | accepted | declined."
+      },
+      "limit": {
+        "type": "number",
+        "description": "Max rows (default 15)."
+      }
+    }
+  },
+  "category": "research.run",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: prospect_budget_add > golden surface 1`] = `
+{
+  "name": "prospect_budget_add",
+  "description": "Add budget to a prospecting job that's paused on cost (owner said e.g. \\"add 25 to the roofing job\\").",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "job_id": {
+        "type": "string"
+      },
+      "amount_usd": {
+        "type": "number"
+      }
+    },
+    "required": [
+      "job_id",
+      "amount_usd"
+    ]
+  },
+  "category": "prospect.spend",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: prospect_cancel > golden surface 1`] = `
+{
+  "name": "prospect_cancel",
+  "description": "Cancel a prospecting job. Pending tasks are dropped; a partial report still goes out.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "job_id": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "job_id"
+    ]
+  },
+  "category": "prospect.research",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: prospect_export > golden surface 1`] = `
+{
+  "name": "prospect_export",
+  "description": "Export a prospecting job's list (link to the Drive sheet / Office list).",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "job_id": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "job_id"
+    ]
+  },
+  "category": "prospect.research",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: prospect_pause > golden surface 1`] = `
+{
+  "name": "prospect_pause",
+  "description": "Pause a running prospecting job.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "job_id": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "job_id"
+    ]
+  },
+  "category": "prospect.research",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: prospect_plan > golden surface 1`] = `
+{
+  "name": "prospect_plan",
+  "description": "Turn a plain-English prospecting request (e.g. \\"roofing companies within 50 miles of Tampa, 4+ rating, owner emails\\") into a research plan with a cost estimate and ETA, BEFORE anything runs or spends money. Always call this first for a new prospecting ask — never prospect_start.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "request": {
+        "type": "string",
+        "description": "The ask, in the owner's words."
+      }
+    },
+    "required": [
+      "request"
+    ]
+  },
+  "category": "prospect.research",
+  "reversible": true,
+  "speed": "slow"
+}
+`;
+
+exports[`tool: prospect_resume > golden surface 1`] = `
+{
+  "name": "prospect_resume",
+  "description": "Resume a paused prospecting job.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "job_id": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "job_id"
+    ]
+  },
+  "category": "prospect.research",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: prospect_start > golden surface 1`] = `
+{
+  "name": "prospect_start",
+  "description": "Start the most recently planned prospecting job (the one prospect_plan just estimated) after the owner says \\"go ahead\\" / \\"run it\\" / \\"do it\\". Never call this without a prior prospect_plan in this conversation.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "job_id": {
+        "type": "string",
+        "description": "Specific job id, if known."
+      }
+    }
+  },
+  "category": "prospect.spend",
+  "reversible": true,
+  "speed": "slow"
+}
+`;
+
+exports[`tool: prospect_status > golden surface 1`] = `
+{
+  "name": "prospect_status",
+  "description": "Report a prospecting job's status — funnel counts, spend vs budget. Use for \\"how's the roofing job going\\" or similar.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "job_id": {
+        "type": "string"
+      }
+    }
+  },
+  "category": "prospect.research",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: put_through_list > golden surface 1`] = `
+{
+  "name": "put_through_list",
+  "description": "Alex's always-put-through list for their work phone: people Clara connects straight to Alex's personal cell with no questions (key clients, close partners). 'always put Dana through, 555-010-0100', 'take Mike off the put-through list', 'who do you put straight through?'. A name without a number is looked up in their contacts/CRM.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string",
+        "enum": [
+          "add",
+          "remove",
+          "list"
+        ]
+      },
+      "name": {
+        "type": "string",
+        "description": "Who, as the owner said it."
+      },
+      "phone": {
+        "type": "string",
+        "description": "Their number, if the owner gave one."
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "category": "call.inbound",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: read_thread > golden surface 1`] = `
+{
+  "name": "read_thread",
+  "description": "Read a whole conversation thread in order. Two sources: a CRM client conversation by its id (email/sms/phone channels the business runs — pass conversation_id; call with no args first to list recent ones), or the owner's own chat log for a given day (pass date YYYY-MM-DD). Use for 'pull up that conversation with X', 'what did the client say in that thread', 'show me what we talked about Tuesday'. Read-only. For SEARCHING history use recall_sessions; this reads a known thread end to end.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "conversation_id": {
+        "type": "string",
+        "description": "CRM conversation id. Omit with no date to list recent conversations and their ids."
+      },
+      "date": {
+        "type": "string",
+        "description": "YYYY-MM-DD — read that day of the owner's own chat log instead of a CRM thread."
+      },
+      "limit": {
+        "type": "number",
+        "description": "Max messages to show. Default 20 (CRM) / 200 (own log)."
+      }
+    }
+  },
+  "category": "research.run",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: recall_sessions > golden surface 1`] = `
+{
+  "name": "recall_sessions",
+  "description": "Search past conversations with Alex — full-text over every prior chat session, months back. Use when a request references something discussed before: 'what did we decide about X', 'didn't I ask you about this already', 'find that thing Alex mentioned last month', or when today's ask clearly continues earlier work you don't have in context. Returns matching moments with their session date and topic. Read-only; searches only your own history.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "query": {
+        "type": "string",
+        "description": "What to look for — plain keywords work best (e.g. 'boat insurance renewal')."
+      },
+      "limit": {
+        "type": "number",
+        "description": "Max matches to return (default 8)."
+      }
+    },
+    "required": [
+      "query"
+    ]
+  },
+  "category": "research.run",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: reschedule_appointment > golden surface 1`] = `
+{
+  "name": "reschedule_appointment",
+  "description": "Move an existing CRM appointment to a new time. Needs the appointment id from find_appointment plus the new start and end. When Alex asks directly it runs at once; from anyone else it queues for Alex's OK first, since the client sees the change.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "appointment_id": {
+        "type": "string",
+        "description": "From find_appointment."
+      },
+      "start_time": {
+        "type": "string",
+        "description": "New start, full ISO 8601 with offset."
+      },
+      "end_time": {
+        "type": "string",
+        "description": "New end, full ISO 8601 with offset."
+      }
+    },
+    "required": [
+      "appointment_id",
+      "start_time",
+      "end_time"
+    ]
+  },
+  "category": "calendar.external",
+  "reversible": false,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: restart_service > golden surface 1`] = `
+{
+  "name": "restart_service",
+  "description": "Restart one of the agent services when it is stuck or unreachable.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "target": {
+        "type": "string",
+        "enum": [
+          "friday",
+          "mcp"
+        ]
+      }
+    },
+    "required": [
+      "target"
+    ]
+  },
+  "category": "research.run",
+  "reversible": true,
+  "speed": "slow"
+}
+`;
+
+exports[`tool: run_subagent > golden surface 1`] = `
+{
+  "name": "run_subagent",
+  "description": "Hand ONE task to a member of your own department and return their report: front-desk (leads/CRM/screening), scheduler (calendar surgery), inbox-triage (mail sweeps/subscriptions), contracts-docs (document drafting/filing), researcher (deep research), advisor (Alex-facing strategy counsel). Each runs with its own narrow tool set; anything irreversible inside their run still queues for Alex. Use when the task fits a specialist better than doing it yourself.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "subagent": {
+        "type": "string",
+        "enum": [
+          "front-desk",
+          "scheduler",
+          "inbox-triage",
+          "contracts-docs",
+          "researcher",
+          "advisor"
+        ]
+      },
+      "task": {
+        "type": "string",
+        "description": "The single task, fully stated — the specialist sees only this and its own tools."
+      }
+    },
+    "required": [
+      "subagent",
+      "task"
+    ]
+  },
+  "category": "research.run",
+  "reversible": true,
+  "speed": "slow"
+}
+`;
+
+exports[`tool: send_email > golden surface 1`] = `
+{
+  "name": "send_email",
+  "description": "Send an email now. Use whenever the owner asks you to email, reply to, or write to someone — the owner does not need to approve an email they just asked for. The owner is CC'd on every email automatically; do not add them yourself. If you only have a name, look the address up first (crm_lookup / find_email). Use draft_email instead ONLY when they ask to see a draft before it goes out.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "to": {
+        "type": "string",
+        "description": "Recipient address."
+      },
+      "subject": {
+        "type": "string"
+      },
+      "body": {
+        "type": "string",
+        "description": "Full message text. Write it properly — this goes out over their name."
+      },
+      "cc": {
+        "type": "string",
+        "description": "Extra CC recipients (the owner is added automatically)."
+      }
+    },
+    "required": [
+      "to",
+      "subject",
+      "body"
+    ]
+  },
+  "category": "email.work",
+  "reversible": false,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: send_for_signature > golden surface 1`] = `
+{
+  "name": "send_for_signature",
+  "description": "Send a CRM proposal or contract out for e-signature through the OS's own signing rail — freezes the document, emails the signer a signing link, and tracks status. Needs the document type (proposal|contract), its id (from proposals_list/contracts_list via the CRM), and the signer's email. This QUEUES for Alex's approval; nothing is sent until they confirm.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "document_type": {
+        "type": "string",
+        "enum": [
+          "proposal",
+          "contract"
+        ],
+        "description": "What is being signed."
+      },
+      "document_id": {
+        "type": "string",
+        "description": "The proposal/contract UUID."
+      },
+      "signer_email": {
+        "type": "string",
+        "description": "Signer's email address."
+      },
+      "signer_name": {
+        "type": "string",
+        "description": "Signer's full name (optional)."
+      },
+      "expires_in_days": {
+        "type": "number",
+        "description": "Link validity (default 14 days)."
+      }
+    },
+    "required": [
+      "document_type",
+      "document_id",
+      "signer_email"
+    ]
+  },
+  "category": "email.work",
+  "reversible": false,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: signature_status > golden surface 1`] = `
+{
+  "name": "signature_status",
+  "description": "Check where a proposal or contract's e-signature request stands — pending, viewed, signed, declined, expired, or voided. Read-only.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "document_type": {
+        "type": "string",
+        "enum": [
+          "proposal",
+          "contract"
+        ],
+        "description": "What kind of document."
+      },
+      "document_id": {
+        "type": "string",
+        "description": "The proposal/contract UUID."
+      }
+    },
+    "required": [
+      "document_type",
+      "document_id"
+    ]
+  },
+  "category": "research.run",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: signature_void > golden surface 1`] = `
+{
+  "name": "signature_void",
+  "description": "Void an active e-signature request on a proposal or contract — the reverse gear for send_for_signature. Unlocks the document for edits; only works while it is NOT yet signed. This QUEUES for Alex's approval (voiding a live signing link is client-visible).",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "document_type": {
+        "type": "string",
+        "enum": [
+          "proposal",
+          "contract"
+        ],
+        "description": "What kind of document."
+      },
+      "document_id": {
+        "type": "string",
+        "description": "The proposal/contract UUID."
+      }
+    },
+    "required": [
+      "document_type",
+      "document_id"
+    ]
+  },
+  "category": "email.work",
+  "reversible": false,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: stages_list > golden surface 1`] = `
+{
+  "name": "stages_list",
+  "description": "List the stages of ONE pipeline, in board order, with their ids. Accepts the pipeline's name or id. Use when you already know the pipeline and just need a stage id for create_deal or move_deal_stage.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "pipeline": {
+        "type": "string",
+        "description": "Pipeline name or id."
+      }
+    },
+    "required": [
+      "pipeline"
+    ]
+  },
+  "category": "research.run",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: sweep_inbox > golden surface 1`] = `
+{
+  "name": "sweep_inbox",
+  "description": "Triage and clean the owner's work inbox: archive bulk/newsletter/finished mail, mark routine mail read, label the rest for review. Use for any request about cleaning, tidying, sorting, organising, analysing, or going through email. Never deletes anything.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "dry_run": {
+        "type": "boolean",
+        "description": "Preview only, change nothing. Use when the owner asks what it WOULD do."
+      },
+      "max_scan": {
+        "type": "number",
+        "description": "How many unread to examine. Default 200. Use 500 to clear a whole backlog."
+      }
+    }
+  },
+  "category": "email.work",
+  "reversible": true,
+  "speed": "slow"
+}
+`;
+
+exports[`tool: track_followup > golden surface 1`] = `
+{
+  "name": "track_followup",
+  "description": "Start tracking something the owner is waiting on from someone else. She'll nudge on day 2, 5 and 10. Use for 'I'm waiting on X', 'chase Y about Z', 'follow up with…'.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "what": {
+        "type": "string",
+        "description": "What is being waited on, e.g. 'the quote for the roof'."
+      },
+      "who": {
+        "type": "string",
+        "description": "Person or company."
+      },
+      "email": {
+        "type": "string"
+      },
+      "phone": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "what",
+      "who"
+    ]
+  },
+  "category": "research.run",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: unsubscribe_from > golden surface 1`] = `
+{
+  "name": "unsubscribe_from",
+  "description": "Unsubscribe the owner from ONE named sender, using the List-Unsubscribe header. Call list_subscriptions first to get the exact sender address. Never guess an address.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "sender": {
+        "type": "string",
+        "description": "Exact sender email address from list_subscriptions."
+      }
+    },
+    "required": [
+      "sender"
+    ]
+  },
+  "category": "email.work",
+  "reversible": false,
+  "speed": "slow"
+}
+`;
+
+exports[`tool: web_search > golden surface 1`] = `
+{
+  "name": "web_search",
+  "description": "Search the web for general information and answer from the top results. Use for questions about facts, current events, products, or anything else that isn't a specific local business (use find_local_business for that) and doesn't need a multi-minute deep-research pass (use deep_work for that).",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "query": {
+        "type": "string",
+        "description": "What to search for."
+      }
+    },
+    "required": [
+      "query"
+    ]
+  },
+  "category": "travel.research",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: whats_waiting_on_me > golden surface 1`] = `
+{
+  "name": "whats_waiting_on_me",
+  "description": "One honest answer to 'what needs me right now' — across email, texts, calls, approvals and notifications, split into signal and noise. Use for 'what do I need to deal with', 'anything important', 'catch me up'.",
+  "input_schema": {
+    "type": "object",
+    "properties": {}
+  },
+  "category": "research.run",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
+
+exports[`tool: work_queue > golden surface 1`] = `
+{
+  "name": "work_queue",
+  "description": "The overnight shift's queue — what's queued, running, done, or failed, and cancel a job by id. Use for 'what's queued for tonight', 'cancel that job', 'did the overnight work finish'.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "cancel": {
+        "type": "string",
+        "description": "Job id (or its #suffix) to cancel. Omit to just list."
+      }
+    }
+  },
+  "category": "drive.read",
+  "reversible": true,
+  "speed": "fast"
+}
+`;
